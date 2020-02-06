@@ -1,5 +1,5 @@
+/*
 import axios from 'axios'
-const pkg = require('./package')
 
 const dynamicRoutes = () => {
   return axios.get('http://localhost:3000/getData').then(res => {
@@ -11,6 +11,8 @@ const dynamicRoutes = () => {
     })
   })
 }
+*/
+const pkg = require('./package')
 
 module.exports = {
   mode: 'universal',
@@ -36,6 +38,7 @@ module.exports = {
     ]
   },
 
+  /*
   generate: {
     routes: dynamicRoutes
   },
@@ -48,12 +51,12 @@ module.exports = {
   /*
   ** Global CSS
   */
-  css: ['normalize.css', { src: '~/assets/main.scss', lang: 'sass' }],
+  css: ['normalize.css', { src: '@/assets/main.scss', lang: 'sass' }],
 
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: [`~/plugins/currency-filter.js`],
+  plugins: [`@/plugins/currency-filter.js`],
 
   /*
   ** Nuxt.js modules

@@ -2,7 +2,7 @@
   <div>
     <section class="item-contain">
       <section class="img">
-        <img :src="`/products/${product.img}`" />
+        <img :src="`/products/${product.img}`">
       </section>
       <section class="product-info">
         <h1>{{ product.name }}</h1>
@@ -24,7 +24,7 @@
           <button class="update-num" @click="quantity > 0 ? quantity-- : quantity = 0">
             -
           </button>
-          <input v-model="quantity" type="number" />
+          <input v-model="quantity" type="number">
           <button class="update-num" @click="quantity++">
             +
           </button>
@@ -44,28 +44,33 @@
         </p>
       </section>
     </section>
-    <hr />
+    <hr>
     <div class="reviews">
       <h2>
         Reviews
       </h2>
       <!-- maybe an image of a person? -->
-      <div class="reviewIndividual" v-for="item in product.review" :key="item.id">
-        <h3>
-          {{ item.name }}
-        </h3>
-        <star-rating
-          :rating="item.rating"
-          avtive-color="#000"
-          :read-only="true"
-          :star-size="15"
-          :show-rating="false"
-          style="margin: 5px 0"
-        />
-        <p>
-          {{ item.review }}
-        </p>
-      </div>
+      <span v-if="product.review">
+        <div v-for="item in product.review" :key="item.id" class="reviewIndividual">
+          <h3>
+            {{ item.name }}
+          </h3>
+          <star-rating
+            :rating="item.rating"
+            avtive-color="#000"
+            :read-only="true"
+            :star-size="15"
+            :show-rating="false"
+            style="margin: 5px 0"
+          />
+          <p>
+            {{ item.review }}
+          </p>
+        </div>
+      </span>
+      <span v-else>
+        <p> Be the first to leave a review </p>
+      </span>
       <button class="btn review-btn" @click="openReviewModal();">
         Add a Review
       </button>
