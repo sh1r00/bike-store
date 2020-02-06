@@ -38,6 +38,7 @@ server
         options: {
           cors: true,
           handler: function(request, h) {
+            const host = process.env.HOST || 'localhost:3000'
             const data = request.payload
             const fs = require('fs')
             const fileName = '../static/storedata.json'
@@ -58,7 +59,7 @@ server
                 if (err) return console.log(err)
               }
             )
-            return h.redirect('http://localhost:3000')
+            return h.redirect(host)
           }
         }
       }
