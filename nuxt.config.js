@@ -2,7 +2,7 @@
 import axios from 'axios'
 
 const dynamicRoutes = () => {
-  return axios.get('http://localhost:3000/getData').then(res => {
+  return axios.get('/getData').then(res => {
     return res.data.map(product => {
       return {
         route: '/product/' + product.name,
