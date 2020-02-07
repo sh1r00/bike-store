@@ -35,8 +35,8 @@ export default {
     }
   },
   methods: {
-    async submitReview() {
-      await axios.post('/postComment', {
+    submitReview() {
+      axios.post('/postComment', {
         pageId: this.pageId,
         starRating: this.starRating,
         name: this.name,
