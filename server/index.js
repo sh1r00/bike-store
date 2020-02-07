@@ -6,7 +6,7 @@ const HapiNuxt = require('hapi-nuxt')
 const Inert = require('inert')
 
 const server = new Hapi.Server({
-  host: process.env.HOST || '127.0.0.1',
+  host: process.env.HOST || '0.0.0.0',
   port: process.env.PORT || '3000'
 })
 
@@ -38,7 +38,7 @@ server
         options: {
           cors: true,
           handler: function(request, h) {
-            const host = process.env.HOST || 'localhost:3000'
+            const host = process.env.HOST || '0.0.0.0'
             const data = request.payload
             const fs = require('fs')
             const fileName = '../static/storedata.json'
