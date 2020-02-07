@@ -3,7 +3,7 @@ const Path = require('path')
 const Hapi = require('hapi')
 const consola = require('consola')
 const HapiNuxt = require('hapi-nuxt')
-const Inert = require('Inert')
+const Inert = require('inert')
 
 const server = new Hapi.Server({
   host: process.env.HOST || '127.0.0.1',
