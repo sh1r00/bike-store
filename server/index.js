@@ -6,7 +6,7 @@ const HapiNuxt = require('hapi-nuxt')
 const Inert = require('Inert')
 
 const server = new Hapi.Server({
-  host: process.env.DEPLOY_URL || '127.0.0.1',
+  host: process.env.DEPLOY_URL || 'localhost',
   port: process.env.PORT || '3000'
 })
 
