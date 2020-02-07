@@ -38,7 +38,7 @@ server
         options: {
           cors: true,
           handler: function(request, h) {
-            const host = process.env.HOST || '0.0.0.0'
+            const next = request.query.next ? request.query.next : '/'
             const data = request.payload
             const fs = require('fs')
             const fileName = '../static/storedata.json'
@@ -59,7 +59,7 @@ server
                 if (err) return console.log(err)
               }
             )
-            return h.redirect(host)
+            return h.redirect(next)
           }
         }
       }
