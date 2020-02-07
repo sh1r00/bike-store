@@ -20,7 +20,7 @@
 <script>
 /* eslint-disable no-console */
 import StarRating from 'vue-star-rating/src/star-rating.vue'
-import axios from '@nuxtjs/axios'
+import axios from 'axios'
 
 export default {
   components: {
