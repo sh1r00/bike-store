@@ -20,6 +20,7 @@
 <script>
 /* eslint-disable no-console */
 import StarRating from 'vue-star-rating/src/star-rating.vue'
+import axios from '@nuxtjs/axios'
 
 export default {
   components: {
@@ -35,7 +36,7 @@ export default {
   },
   methods: {
     async submitReview() {
-      await this.$axios.$post('/postComment', {
+      await axios.post('/postComment', {
         pageId: this.pageId,
         starRating: this.starRating,
         name: this.name,
