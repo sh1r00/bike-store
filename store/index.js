@@ -56,7 +56,7 @@ export const mutations = {
 export const actions = {
   async loadData({ commit }) {
     await axios
-      .get('http://localhost:3000/getData')
+      .get('/getData')
       .then(response => {
         // console.log(response.data, this)
         commit('LOADDATA', response.data)
