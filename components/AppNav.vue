@@ -94,7 +94,7 @@ nav {
   padding: 3px;
   top: -18px;
   right: -5px;
-  width: 25px;
+  width: 32px;
   text-align: center;
   height: 25px;
   font-size: 10px;

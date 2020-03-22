@@ -18,7 +18,6 @@
 </template>
 
 <script>
-/* eslint-disable no-console */
 import StarRating from 'vue-star-rating/src/star-rating.vue'
 import axios from 'axios'
 
@@ -42,6 +41,7 @@ export default {
         name: this.name,
         comment: this.comment
       })
+      this.$emit('close-review-modal')
     }
   }
 }

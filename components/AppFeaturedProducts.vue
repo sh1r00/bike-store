@@ -19,11 +19,10 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   computed: {
-    featuredProducts() {
-      return this.$store.getters.featuredProducts
-    }
+    ...mapGetters(['featuredProducts'])
   }
 }
 </script>

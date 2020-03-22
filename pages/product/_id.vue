@@ -24,7 +24,7 @@
           <button class="update-num" @click="quantity > 0 ? quantity-- : quantity = 0">
             -
           </button>
-          <input v-model="quantity" type="number">
+          <span class="quantity-value"> {{ quantity }} </span>
           <button class="update-num" @click="quantity++">
             +
           </button>
@@ -78,10 +78,10 @@
     <app-featured-products />
     <client-only>
       <modal-window ref="confirmModal">
-        <confirm-modal />
+        <confirm-modal @close-confirm-modal="closeConfirmModal" />
       </modal-window>
       <modal-window ref="reviewModal">
-        <review-modal />
+        <review-modal @close-review-modal="closeReviewModal" />
       </modal-window>
     </client-only>
   </div>
@@ -89,7 +89,7 @@
 
 <script>
 /* eslint-disable */
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import StarRating from 'vue-star-rating/src/star-rating.vue'
 import AppFeaturedProducts from '~/components/AppFeaturedProducts.vue'
 import ModalWindow from '~/helpers/ModalWindow.vue'
@@ -97,12 +97,6 @@ import ConfirmModal from '~/components/ConfirmModal.vue'
 import ReviewModal from '~/components/ReviewModal.vue'
 
 export default {
-  async asyncData ({ params, error, payload }) {
-    if (process.server) {
-      if (payload) return { product: payload }
-      else return { product: await backend.fetchProduct(params.id)}
-    } else return
-  },
   components: {
     StarRating,
     AppFeaturedProducts,
@@ -124,18 +118,20 @@ export default {
     }
   },
   computed: {
-    ...mapState(['storedata']),
-    product: function () {
-      /* eslint-disable no-console */
-      return this.storedata.find(el => el.id === this.id)
-    }
+    ...mapGetters(['product'])
   },
   methods: {
     openConfirmModal() {
       this.$refs.confirmModal.modalOpen = true
     },
+    closeConfirmModal() {
+      this.$refs.confirmModal.modalOpen = false
+    },
     openReviewModal() {
       this.$refs.reviewModal.modalOpen = true
+    },
+    closeReviewModal() {
+      this.$refs.reviewModal.modalOpen = false
     },
     cartAdd() {
       const item = this.product
@@ -143,6 +139,11 @@ export default {
       this.tempcart.push(item)
       this.$store.commit('ADDTOCART', { ...item })
     }
+  },
+  mounted() {
+    // eslint-disable-next-line
+    console.log(this.$route.params.id)
+    this.$store.dispatch('setCurrProduct', this.$route.params.id)
   }
 }
 </script>
@@ -173,6 +174,13 @@ input {
 
 .quantity {
   display: flex;
+}
+
+.quantity-value {
+  width: 60px;
+  text-align: center;
+  line-height: 1.625em;
+  font-weight: 700;
 }
 
 @media screen and (max-width: 650px) {

@@ -4,11 +4,24 @@ import uuidv1 from 'uuid/v1'
 
 export const state = () => ({
   cartUIStatus: 'idle',
+  product: {},
   storedata: [],
   cart: []
 })
 
 export const getters = {
+  product(state) {
+    return state.product
+  },
+  storedata(state) {
+    return state.storedata
+  },
+  cart(state) {
+    return state.cart
+  },
+  cartUIStatus(state) {
+    return state.cartUIStatus
+  },
   featuredProducts: state => state.storedata.slice(0, 3),
   women: state => state.storedata.filter(el => el.gender === 'Female'),
   men: state => state.storedata.filter(el => el.gender === 'Male'),
@@ -23,13 +36,13 @@ export const getters = {
 }
 
 export const mutations = {
-  LOADDATA(state, payload) {
+  LOAD_DATA(state, payload) {
     state.storedata = payload
   },
   UPDATECARTUI: (state, payload) => {
     state.cartUIStatus = payload
   },
-  CLEARCART: state => {
+  CLEAR_CART: state => {
     // this clears the cart}
     ;(state.cart = [])((state.cartUIStatus = 'idle'))
   },
@@ -39,31 +52,40 @@ export const mutations = {
       ? (itemfound.quantity += payload.quantity)
       : state.cart.push(payload)
   },
-  REMOVEFROMCART: (state, payload) => {
-    const itemfound = state.cart.find(el => el.id === payload.id)
-    state.cart.splice(itemfound)
+  REMOVE_FROM_CART: (state, payload) => {
+    const newCart = state.cart.filter(el => el.id !== payload.id)
+    state.cart = newCart
   },
-  QUANTITYINCREASE: (state, payload) => {
+  QUANTITY_INCREASE: (state, payload) => {
     const itemfound = state.cart.find(el => el.id === payload.id)
     itemfound.quantity = itemfound.quantity + 1
   },
-  QUANTITYREDUCE: (state, payload) => {
+  QUANTITY_DECREASE: (state, payload) => {
     const itemfound = state.cart.find(el => el.id === payload.id)
     itemfound.quantity = itemfound.quantity - 1
+  },
+  SET_CURR_PRODUCT(state, payload) {
+    state.product = payload
   }
 }
 
 export const actions = {
-  async loadData({ commit }) {
-    await axios
+  loadData({ commit }) {
+    axios
       .get('/getData')
       .then(response => {
         // console.log(response.data, this)
-        commit('LOADDATA', response.data)
+        commit('LOAD_DATA', response.data)
       })
       .catch(error => {
         console.log(error)
       })
+  },
+  setCurrProduct({ commit, getters }, params) {
+    const product = getters.storedata.find(el => el.id === params)
+    // eslint-disable-next-line
+    console.log('product: ', product)
+    commit('SET_CURR_PRODUCT', product)
   },
   async postStripeFunction({ getters, commit }, payload) {
     commit('UPDATECARTUI', 'loading')

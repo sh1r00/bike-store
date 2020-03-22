@@ -16,6 +16,10 @@ export default {
   components: {
     AppFooter,
     AppNav
+  },
+  created() {
+    // console.log(this.$store)
+    this.$store.dispatch('loadData')
   }
 }
 </script>

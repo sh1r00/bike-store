@@ -38,9 +38,9 @@ module.exports = {
     ]
   },
 
-  /*
   generate: {
-    routes: dynamicRoutes
+    fallback: true
+    // routes: dynamicRoutes
   },
 
   /*
@@ -56,7 +56,7 @@ module.exports = {
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: [`@/plugins/currency-filter.js`],
+  plugins: [`@/plugins/currency-filter.js`, '@/plugins/vee-validate.js'],
 
   /*
   ** Nuxt.js modules

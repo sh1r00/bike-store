@@ -26,7 +26,10 @@
     </section>
 
     <section v-else-if="cartUIStatus === 'failure'">
-      <p>Oops, something went wrong. Redirecting you to your cart to try again.</p>
+      <p>Oops, something went wrong. Would you like to try again?</p>
+      <button @click="resetCartUIStatus">
+        Retry
+      </button>
     </section>
 
     <app-sales-boxes />
@@ -34,7 +37,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import AppLoader from '~/components/AppLoader.vue'
 import AppCartSteps from '~/components/AppCartSteps.vue'
 import AppSalesBoxes from '~/components/AppSalesBoxes.vue'
@@ -48,7 +51,12 @@ export default {
     AppLoader
   },
   computed: {
-    ...mapState(['cartUIStatus'])
+    ...mapGetters(['cartUIStatus'])
+  },
+  methods: {
+    resetCartUIStatus() {
+      this.$store.commit('UPDATECARTUI', 'idle')
+    }
   }
 }
 </script>

@@ -77,7 +77,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 
 import AppCard from '~/components/AppCard.vue'
 
@@ -91,18 +91,17 @@ export default {
     }
   },
   computed: {
-    ...mapState(['cart']),
-    ...mapGetters(['cartCount', 'cartTotal'])
+    ...mapGetters(['cartCount', 'cartTotal', 'cart'])
   },
   methods: {
     removeItem(item) {
-      this.$store.commit('REMOVEFROMCART', item)
+      this.$store.commit('REMOVE_FROM_CART', item)
     },
     quantityReduce(item) {
-      this.$store.commit('QUANTITYREDUCE', item)
+      this.$store.commit('QUANTITY_DECREASE', item)
     },
     quantityIncrease(item) {
-      this.$store.commit('QUANTITYINCREASE', item)
+      this.$store.commit('QUANTITY_INCREASE', item)
     }
   }
 }

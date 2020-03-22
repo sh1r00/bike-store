@@ -3,7 +3,7 @@
     <h1>
       Your items have been added to the cart!
     </h1>
-    <button>
+    <button @click="$emit('close-confirm-modal')">
       Ok
     </button>
   </div>

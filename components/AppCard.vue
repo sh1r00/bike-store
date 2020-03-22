@@ -10,7 +10,7 @@
       <br>
       <small>
         Test using this credit card:
-        <span class="cc-number">4242 4242 4242 4242</span>, and enter any 5 digits for the zip code
+        <span class="cc-number">4242 4242 4242 4242</span>, date: 04/24, CVC: 242, and enter any 5 digits for the zip code
       </small>
       <card
         id="card"
@@ -53,7 +53,7 @@
 <script>
 import { Card, createToken } from 'vue-stripe-elements-plus'
 
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   components: { Card },
@@ -68,7 +68,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['cartUIStatus'])
+    ...mapGetters(['cartUIStatus'])
   },
   methods: {
     pay() {
@@ -79,7 +79,7 @@ export default {
     },
     clearCart() {
       this.complete = false
-      this.$store.commit('CLEARCOUNT')
+      this.$store.commit('CLEAR_CART')
     }
   }
 }

@@ -22,12 +22,11 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   computed: {
-    ...mapState(['cartUIStatus']),
-    ...mapGetters(['cartCount'])
+    ...mapGetters(['cartCount', 'cartUIStatus'])
   }
 }
 </script>

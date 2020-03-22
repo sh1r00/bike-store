@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import AppStoreGrid from '~/components/AppStoreGrid.vue'
 
 export default {
@@ -13,7 +13,7 @@ export default {
     AppStoreGrid
   },
   computed: {
-    ...mapState(['storedata'])
+    ...mapGetters(['storedata'])
   }
 }
 </script>

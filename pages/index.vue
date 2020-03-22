@@ -37,10 +37,6 @@ export default {
   },
   computed: {
     ...mapState(['storedata', 'loading'])
-  },
-  created() {
-    // console.log(this.$store)
-    this.$store.dispatch('loadData')
   }
 }
 </script>
