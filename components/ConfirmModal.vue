@@ -17,4 +17,7 @@
   background-color: white;
   margin: auto;
 }
+button {
+  width: 100%;
+}
 </style>
