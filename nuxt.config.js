@@ -56,7 +56,7 @@ module.exports = {
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: [`@/plugins/currency-filter.js`, '@/plugins/vee-validate.js'],
+  plugins: [`@/plugins/currency-filter.js`],
 
   /*
   ** Nuxt.js modules
