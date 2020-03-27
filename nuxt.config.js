@@ -56,7 +56,7 @@ module.exports = {
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: [`@/plugins/currency-filter.js`],
+  plugins: [`@/plugins/currency-filter.js`, '@/plugins/vee-validate.js'],
 
   /*
   ** Nuxt.js modules
@@ -78,6 +78,7 @@ module.exports = {
   ** Build configuration
   */
   build: {
+    transpile: ['vee-validate'],
     /*
     ** You can extend webpack config here
     */

@@ -1,28 +1,80 @@
 <template>
-  <div class="container">
-    <div class="form">
+  <validation-observer
+    v-slot="{ invalid }"
+    class="container"
+    tag="div"
+  >
+    <form
+      class="form"
+      @submit.prevent="submitReview"
+    >
       <star-rating v-model="starRating" />
-      <label for="name">
-        <h1> Name </h1>
-        <input id="name" v-model="name" type="text">
-      </label>
-      <label for="comment">
-        <h1> Comment </h1>
-        <input id="comment" v-model="comment" type="text">
-      </label>
-      <button @click.prevent="submitReview">
+      <validation-provider
+        v-slot="{ errors }"
+        tag="div"
+        rules="required"
+      >
+        <label for="name">
+          <h3> Name* </h3>
+          <input
+            id="name"
+            v-model="name"
+            type="text"
+            placeholder="Please enter your name"
+          >
+        </label>
+        <span v-if="!errors[0]">
+          * Required
+        </span>
+        <span
+          v-if="errors[0]"
+          style="color: red; font-weight: 600; font-size: 0.6em"
+        >
+          {{ errors[0] }}
+        </span>
+      </validation-provider>
+      <validation-provider
+        v-slot="{ errors }"
+        tag="div"
+        rules="required"
+      >
+        <label for="comment">
+          <h3> Comment </h3>
+          <textarea
+            id="comment"
+            v-model="comment"
+            type="text"
+            placeholder="Please enter a comment..."
+          />
+        </label>
+        <span v-if="!errors[0]">
+          * Required
+        </span>
+        <span
+          v-if="errors[0]"
+          style="color: red; font-weight: 600; font-size: 0.6em"
+        >
+          {{ errors[0] }}
+        </span>
+      </validation-provider>
+      <button
+        type="submit"
+        :disabled="invalid"
+      >
         Submit
       </button>
-    </div>
-  </div>
+    </form>
+  </validation-observer>
 </template>
 
 <script>
+import { ValidationObserver, ValidationProvider } from 'vee-validate'
 import StarRating from 'vue-star-rating/src/star-rating.vue'
-import axios from 'axios'
 
 export default {
   components: {
+    ValidationObserver,
+    ValidationProvider,
     StarRating
   },
   data() {
@@ -35,12 +87,13 @@ export default {
   },
   methods: {
     submitReview() {
-      axios.post('/postComment', {
+      const review = {
         pageId: this.pageId,
         starRating: this.starRating,
         name: this.name,
         comment: this.comment
-      })
+      }
+      this.$store.dispatch('submitReview', review)
       this.$emit('close-review-modal')
     }
   }
@@ -52,6 +105,7 @@ export default {
   width: auto;
   height: auto;
   background-color: white;
+  padding: auto;
 }
 .form {
   display: flex;
@@ -59,6 +113,13 @@ export default {
 }
 
 .form label {
-  flex-direction: row;
+  flex-direction: column;
+}
+
+button:disabled,
+button[disabled] {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
 }
 </style>

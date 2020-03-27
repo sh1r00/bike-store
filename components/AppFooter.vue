@@ -8,7 +8,7 @@
     <div class="sarahstuff">
       <p>
         This project is hosted with
-        <a href="https://bit.ly/2G29YwK">Netlify</a>, and made with love by sh1r00
+        <a href="heroku.com">Heroku</a>, and made with love by sh1r00
       </p>
     </div>
   </footer>

@@ -66,6 +66,15 @@ export const mutations = {
   },
   SET_CURR_PRODUCT(state, payload) {
     state.product = payload
+  },
+  UPDATE_REVIEWS(state, payload) {
+    const itemfound = state.storedata.find(el => el.id === payload.pageId)
+    const newReview = {
+      rating: payload.starRating,
+      name: payload.name,
+      review: payload.comment
+    }
+    itemfound.review.push(newReview)
   }
 }
 
@@ -86,6 +95,14 @@ export const actions = {
     // eslint-disable-next-line
     console.log('product: ', product)
     commit('SET_CURR_PRODUCT', product)
+  },
+  submitReview({ commit }, params) {
+    axios.post('/postComment', params).then(response => {
+      console.log('response', response)
+      if (response.status === 200) {
+        commit('UPDATE_REVIEWS', params)
+      }
+    })
   },
   async postStripeFunction({ getters, commit }, payload) {
     commit('UPDATECARTUI', 'loading')

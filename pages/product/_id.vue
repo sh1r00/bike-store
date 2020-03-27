@@ -132,6 +132,7 @@ export default {
     },
     closeReviewModal() {
       this.$refs.reviewModal.modalOpen = false
+      this.$store.getters.product
     },
     cartAdd() {
       const item = this.product
