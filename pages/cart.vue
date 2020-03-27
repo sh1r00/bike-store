@@ -55,7 +55,7 @@ export default {
   },
   methods: {
     resetCartUIStatus() {
-      this.$store.commit('UPDATECARTUI', 'idle')
+      this.$store.commit('UPDATECART_UI', 'idle')
     }
   }
 }

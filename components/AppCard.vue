@@ -16,7 +16,7 @@
         id="card"
         class="stripe-card"
         :class="{ complete }"
-        stripe="pk_test_5ThYi0UvX3xwoNdgxxxTxxrG"
+        stripe="pk_test_SkFCsq5uRULpe8Vo9Pa4bvb9"
         :options="stripeOptions"
         @change="complete = $event.complete"
       />
@@ -64,7 +64,7 @@ export default {
         // you can configure that cc element. I liked the default, but you can
         // see https://stripe.com/docs/stripe.js#element-options for details
       },
-      stripeEmail: ''
+      stripeEmail: 'rasisg@gmail.com'
     }
   },
   computed: {

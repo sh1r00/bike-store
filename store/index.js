@@ -39,14 +39,15 @@ export const mutations = {
   LOAD_DATA(state, payload) {
     state.storedata = payload
   },
-  UPDATECARTUI: (state, payload) => {
+  UPDATECART_UI: (state, payload) => {
     state.cartUIStatus = payload
   },
   CLEAR_CART: state => {
-    // this clears the cart}
-    ;(state.cart = [])((state.cartUIStatus = 'idle'))
+    // this clears the cart
+    state.cart = []
+    state.cartUIStatus = 'idle'
   },
-  ADDTOCART: (state, payload) => {
+  ADD_TO_CART: (state, payload) => {
     const itemfound = state.cart.find(el => el.id === payload.id)
     itemfound
       ? (itemfound.quantity += payload.quantity)
@@ -105,12 +106,12 @@ export const actions = {
     })
   },
   async postStripeFunction({ getters, commit }, payload) {
-    commit('UPDATECARTUI', 'loading')
+    commit('UPDATECART_UI', 'loading')
 
     try {
       await axios
         .post(
-          'https://ecommerce-netlify.netlify.com/.netlify/functions/index',
+          '/charge',
           {
             stripeEmail: payload.stripeEmail,
             stripeAmt: Math.floor(getters.cartTotal * 100), // it expects the price in cents, as an integer
@@ -125,19 +126,19 @@ export const actions = {
         )
         .then(res => {
           if (res.status === 200) {
-            commit('UPDATECARTUI', 'success')
-            setTimeout(() => commit('CLEARCART'), 3000)
+            commit('UPDATECART_UI', 'success')
+            setTimeout(() => commit('CLEAR_CART'), 3000)
           } else {
-            commit('UPDATECARTUI', 'failure')
+            commit('UPDATECART_UI', 'failure')
             // allow them to try again
-            setTimeout(() => commit('UPDATECARTUI', 'idle'), 3000)
+            setTimeout(() => commit('UPDATECART_UI', 'idle'), 3000)
           }
 
           console.log(JSON.stringify(res, null, 2))
         })
     } catch (err) {
       console.log(err)
-      commit('UPDATECARTUI', 'failure')
+      commit('UPDATECART_UI', 'failure')
     }
   }
 }

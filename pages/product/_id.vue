@@ -138,7 +138,7 @@ export default {
       const item = this.product
       item.quantity = this.quantity
       this.tempcart.push(item)
-      this.$store.commit('ADDTOCART', { ...item })
+      this.$store.commit('ADD_TO_CART', { ...item })
     }
   },
   mounted() {

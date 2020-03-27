@@ -17,6 +17,16 @@ export default {
     AppFooter,
     AppNav
   },
+  mounted() {
+    if (process.browser) {
+      const domElement = document.createElement('script')
+      domElement.setAttribute('src', 'https://js.stripe.com/v3/')
+      domElement.onload = () => {
+        this.loadedStripe = true
+      }
+      document.body.appendChild(domElement)
+    }
+  },
   created() {
     // console.log(this.$store)
     this.$store.dispatch('loadData')
