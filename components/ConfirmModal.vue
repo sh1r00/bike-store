@@ -20,8 +20,6 @@
 }
 button {
   margin-top: 2.52em;
-  min-height: 60px;
-  min-width: 60px;
   width: 100%;
 }
 </style>
