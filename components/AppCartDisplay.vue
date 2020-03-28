@@ -19,21 +19,27 @@
             <h4 class="price">
               {{ item.price | dollar }}
             </h4>
-          </td>
+          </td>          
           <td class="quantity">
-            <div v-if="item.quantity > 1">
-              <button @click="quantityReduce(item)">
-                -
-              </button>
-            </div>
-            <div v-else>
-              <button @click="removeItem(item)">
-                removeItem
-              </button>
-            </div>
-            <strong> {{ item.quantity }} </strong>
             <button @click="quantityIncrease(item)">
               +
+            </button>
+            <div class="quantity-item">
+              <strong>
+                {{ item.quantity }}
+              </strong>
+            </div>
+            <button
+              v-if="item.quantity > 1"
+              @click="quantityReduce(item)"
+            >
+              -
+            </button>
+            <button
+              v-else
+              @click="removeItem(item)"
+            >
+              Remove Item
             </button>
           </td>
           <td>{{ item.quantity * item.price | dollar }}</td>
@@ -162,10 +168,13 @@ button a {
   transition: 0.3s all ease;
 }
 
-.quantity {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+button {
+  max-width: 6em;
+}
+
+.quantity-item {
+  height: 2.5em;
+  padding-top: 0.75em;
 }
 
 @media screen and (min-width: 700px) {

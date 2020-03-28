@@ -8,6 +8,9 @@
       class="form"
       @submit.prevent="submitReview"
     >
+      <h2 style="margin-bottom: 1.5em;">
+        Please leave us a review
+      </h2>
       <star-rating v-model="starRating" />
       <validation-provider
         v-slot="{ errors }"
@@ -24,7 +27,7 @@
           >
         </label>
         <span v-if="!errors[0]">
-          * Required
+          *Required
         </span>
         <span
           v-if="errors[0]"
@@ -39,16 +42,17 @@
         rules="required"
       >
         <label for="comment">
-          <h3> Comment </h3>
+          <h3> Comment* </h3>
           <textarea
             id="comment"
             v-model="comment"
             type="text"
+            rows="6"
             placeholder="Please enter a comment..."
           />
         </label>
         <span v-if="!errors[0]">
-          * Required
+          *Required
         </span>
         <span
           v-if="errors[0]"
@@ -105,15 +109,20 @@ export default {
   width: auto;
   height: auto;
   background-color: white;
-  padding: auto;
+  padding: 4em 4em 1em 4em;
 }
 .form {
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .form label {
   flex-direction: column;
+}
+
+button {
+  margin-top: 2.53em;
 }
 
 button:disabled,

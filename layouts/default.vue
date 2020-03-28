@@ -34,7 +34,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 body {
   border: 10px solid #ccc;
   min-height: 100vh;
@@ -61,6 +61,11 @@ main {
   padding: 0;
   width: 95vw;
   margin-left: 2vw;
+}
+
+button {
+  min-height: 60px;
+  min-width: 60px;
 }
 
 @media screen and (min-width: 1000px) {

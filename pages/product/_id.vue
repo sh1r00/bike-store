@@ -20,15 +20,19 @@
         <p>
           {{ product.description }}
         </p>
-        <p class="quantity">
+        <div class="quantity">
           <button class="update-num" @click="quantity > 0 ? quantity-- : quantity = 0">
             -
           </button>
-          <span class="quantity-value"> {{ quantity }} </span>
+          <div class="quantity-value">
+            <span>
+              {{ quantity }}
+            </span>
+          </div>
           <button class="update-num" @click="quantity++">
             +
           </button>
-        </p>
+        </div>
         <p>
           Available in additional colors:
           <strong>
@@ -175,6 +179,7 @@ input {
 
 .quantity {
   display: flex;
+  height: 3.5em;
 }
 
 .quantity-value {
@@ -182,6 +187,7 @@ input {
   text-align: center;
   line-height: 1.625em;
   font-weight: 700;
+  padding-top: 1.25em;
 }
 
 @media screen and (max-width: 650px) {
