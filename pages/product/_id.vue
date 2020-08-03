@@ -1,93 +1,109 @@
 <template>
   <div>
-    <section class="item-contain">
-      <section class="img">
-        <img :src="`/products/${product.img}`">
-      </section>
-      <section class="product-info">
-        <h1>{{ product.name }}</h1>
-        <star-rating
-          :rating="product.starrating"
-          :star-size="15"
-          :show-rating="false"
-          :read-only="true"
-          active-color="#000"
-          style="margin: 5px 0"
-        />
-        <h4 class="price">
-          {{ product.price | dollar }}
-        </h4>
-        <p>
-          {{ product.description }}
-        </p>
-        <div class="quantity">
-          <button class="update-num" @click="quantity > 0 ? quantity-- : quantity = 0">
-            -
-          </button>
-          <div class="quantity-value">
-            <span>
-              {{ quantity }}
-            </span>
-          </div>
-          <button class="update-num" @click="quantity++">
-            +
-          </button>
-        </div>
-        <p>
-          Available in additional colors:
-          <strong>
-            <span :style="`color: ${product.color}`">
-              {{ product.color }}
-            </span>
-          </strong>
-        </p>
-        <p>
-          <button class="button purchase" @click="cartAdd(); openConfirmModal();">
-            Add to Cart
-          </button>
-        </p>
-      </section>
-    </section>
-    <hr>
-    <div class="reviews">
-      <h2>
-        Reviews
-      </h2>
-      <!-- maybe an image of a person? -->
-      <span v-if="product.review">
-        <div v-for="item in product.review" :key="item.id" class="reviewIndividual">
-          <h3>
-            {{ item.name }}
-          </h3>
+    <div v-if="product">
+      <section class="item-contain">
+        <section class="img">
+          <img :src="`/products/${product.img}`">
+        </section>
+        <section class="product-info">
+          <h1>{{ product.name }}</h1>
           <star-rating
-            :rating="item.rating"
-            avtive-color="#000"
-            :read-only="true"
+            :rating="product.starrating"
             :star-size="15"
             :show-rating="false"
+            :read-only="true"
+            active-color="#000"
             style="margin: 5px 0"
           />
+          <h4 class="price">
+            {{ product.price | dollar }}
+          </h4>
           <p>
-            {{ item.review }}
+            {{ product.description }}
           </p>
-        </div>
-      </span>
-      <span v-else>
-        <p> Be the first to leave a review </p>
-      </span>
-      <button class="btn review-btn" @click="openReviewModal();">
-        Add a Review
+          <div class="quantity">
+            <button class="update-num" @click="quantity > 0 ? quantity-- : quantity = 0">
+              -
+            </button>
+            <div class="quantity-value">
+              <span>
+                {{ quantity }}
+              </span>
+            </div>
+            <button class="update-num" @click="quantity++">
+              +
+            </button>
+          </div>
+          <p>
+            Available in additional colors:
+            <strong>
+              <span :style="`color: ${product.color}`">
+                {{ product.color }}
+              </span>
+            </strong>
+          </p>
+          <p>
+            <button class="button purchase" @click="cartAdd(); openConfirmModal();">
+              Add to Cart
+            </button>
+          </p>
+        </section>
+      </section>
+      <hr>
+      <div class="reviews">
+        <h2>
+          Reviews
+        </h2>
+        <!-- maybe an image of a person? -->
+        <span v-if="product.review">
+          <div v-for="item in product.review" :key="item.id" class="reviewIndividual">
+            <h3>
+              {{ item.name }}
+            </h3>
+            <star-rating
+              :rating="item.rating"
+              avtive-color="#000"
+              :read-only="true"
+              :star-size="15"
+              :show-rating="false"
+              style="margin: 5px 0"
+            />
+            <p>
+              {{ item.review }}
+            </p>
+          </div>
+        </span>
+        <span v-else>
+          <p> Be the first to leave a review </p>
+        </span>
+        <button class="btn review-btn" @click="openReviewModal();">
+          Add a Review
+        </button>
+      </div>
+      <app-featured-products />
+      <client-only>
+        <modal-window ref="confirmModal">
+          <confirm-modal @close-confirm-modal="closeConfirmModal" />
+        </modal-window>
+        <modal-window ref="reviewModal">
+          <review-modal @close-review-modal="closeReviewModal" />
+        </modal-window>
+      </client-only>
+    </div>
+    <div
+      v-else
+      class="error"
+    >
+      <h2 class="error_text">
+        The product you are looking for is not found
+      </h2>
+      <button
+        class="error_btn"
+        @click="$router.push('/all')"
+      >
+        Go to Catalog
       </button>
     </div>
-    <app-featured-products />
-    <client-only>
-      <modal-window ref="confirmModal">
-        <confirm-modal @close-confirm-modal="closeConfirmModal" />
-      </modal-window>
-      <modal-window ref="reviewModal">
-        <review-modal @close-review-modal="closeReviewModal" />
-      </modal-window>
-    </client-only>
   </div>
 </template>
 
@@ -146,8 +162,6 @@ export default {
     }
   },
   mounted() {
-    // eslint-disable-next-line
-    console.log(this.$route.params.id)
     this.$store.dispatch('setCurrProduct', this.$route.params.id)
   }
 }
@@ -188,6 +202,17 @@ input {
   line-height: 1.625em;
   font-weight: 700;
   padding-top: 1.25em;
+}
+
+.error {
+  width: auto;
+  height: auto;
+  text-align:center;
+  padding: 4em 30%;
+}
+
+.error_btn {
+  margin-top: 1.65em;
 }
 
 @media screen and (max-width: 650px) {

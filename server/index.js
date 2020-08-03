@@ -84,7 +84,6 @@ server
               }
             }
             const data = request.payload
-            console.log(data)
             if (
               !data.stripeToken ||
               !data.stripeAmt ||

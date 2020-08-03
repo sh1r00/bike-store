@@ -4,7 +4,15 @@ import uuidv1 from 'uuid/v1'
 
 export const state = () => ({
   cartUIStatus: 'idle',
-  product: {},
+  product: {
+    name: null,
+    description: null,
+    starrating: 0,
+    img: 1,
+    price: 0,
+    color: null,
+    review: []
+  },
   storedata: [],
   cart: []
 })
@@ -84,22 +92,22 @@ export const actions = {
     axios
       .get('/getData')
       .then(response => {
-        // console.log(response.data, this)
         commit('LOAD_DATA', response.data)
+        console.log('layout loaddata ', response.data)
       })
       .catch(error => {
         console.log(error)
       })
   },
   setCurrProduct({ commit, getters }, params) {
-    const product = getters.storedata.find(el => el.id === params)
-    // eslint-disable-next-line
-    console.log('product: ', product)
+    const products = getters.storedata
+    console.log('products ', products)
+    const product = products.find(el => el.id === params)
+    console.log('mounted product ', product)
     commit('SET_CURR_PRODUCT', product)
   },
   submitReview({ commit }, params) {
     axios.post('/postComment', params).then(response => {
-      console.log('response', response)
       if (response.status === 200) {
         commit('UPDATE_REVIEWS', params)
       }
@@ -133,8 +141,6 @@ export const actions = {
             // allow them to try again
             setTimeout(() => commit('UPDATECART_UI', 'idle'), 3000)
           }
-
-          console.log(JSON.stringify(res, null, 2))
         })
     } catch (err) {
       console.log(err)

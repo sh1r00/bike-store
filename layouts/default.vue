@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import AppFooter from '~/components/AppFooter.vue'
 import AppNav from '~/components/AppNav.vue'
 
@@ -16,6 +17,9 @@ export default {
   components: {
     AppFooter,
     AppNav
+  },
+  computed: {
+    ...mapState(['loading'])
   },
   mounted() {
     if (process.browser) {
@@ -28,8 +32,9 @@ export default {
     }
   },
   created() {
-    // console.log(this.$store)
     this.$store.dispatch('loadData')
+    // eslint-disable-next-line no-console
+    console.log('layout created ')
   }
 }
 </script>

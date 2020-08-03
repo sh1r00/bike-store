@@ -24,7 +24,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import AppTextlockup from '~/components/AppTextlockup.vue'
 import AppSalesBoxes from '~/components/AppSalesBoxes.vue'
 import AppFeaturedProducts from '~/components/AppFeaturedProducts.vue'
@@ -34,9 +33,6 @@ export default {
     AppTextlockup,
     AppSalesBoxes,
     AppFeaturedProducts
-  },
-  computed: {
-    ...mapState(['storedata', 'loading'])
   }
 }
 </script>
