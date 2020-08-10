@@ -41,7 +41,8 @@ export default {
 
 <style>
 body {
-  border: 10px solid #ccc;
+  border: 0;
+  padding: 0;
   min-height: 100vh;
   font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI',
     Roboto, 'Helvetica Neue', Arial, sans-serif;
