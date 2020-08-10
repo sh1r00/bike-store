@@ -33,8 +33,6 @@ export default {
   },
   created() {
     this.$store.dispatch('loadData')
-    // eslint-disable-next-line no-console
-    console.log('layout created ')
   }
 }
 </script>

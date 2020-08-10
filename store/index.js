@@ -93,7 +93,6 @@ export const actions = {
       .get('/getData')
       .then(response => {
         commit('LOAD_DATA', response.data)
-        console.log('layout loaddata ', response.data)
       })
       .catch(error => {
         console.log(error)
@@ -101,9 +100,7 @@ export const actions = {
   },
   setCurrProduct({ commit, getters }, params) {
     const products = getters.storedata
-    console.log('products ', products)
     const product = products.find(el => el.id === params)
-    console.log('mounted product ', product)
     commit('SET_CURR_PRODUCT', product)
   },
   submitReview({ commit }, params) {
